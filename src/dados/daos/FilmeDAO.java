@@ -75,7 +75,7 @@ public class FilmeDAO {
      */
     public void excluir(Filme f){
         
-         //Pegando o gerenciador de acesso ao BD
+        //Pegando o gerenciador de acesso ao BD
         EntityManager gerenciador = JPAUtil.getGerenciador();
         
         //Iniciar a transação
@@ -93,5 +93,25 @@ public class FilmeDAO {
         gerenciador.getTransaction().commit();
         
     }
+    
+    
+    public List<Filme> buscarPeloNome(String nome){
+        
+       //Pegando o gerenciador de acesso ao BD
+       EntityManager gerenciador = JPAUtil.getGerenciador(); 
+       
+       //Criando a consulta ao BD
+       TypedQuery<Filme> consulta = gerenciador.createQuery(
+                "Select f from Filme f where f.nome like :nome", 
+               Filme.class);
+       
+       //Substituindo o parametro :nome pelo valor da variavel n
+       consulta.setParameter("nome", nome + "%");
+       
+       //Retornar os dados
+       return consulta.getResultList();
+        
+    }
+    
     
 }

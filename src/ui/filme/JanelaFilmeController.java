@@ -71,6 +71,8 @@ public class JanelaFilmeController implements Initializable {
     //Atributo para representar o filme selecionado
     //na tabela para editar e excluir
     private Filme selecionado;
+    @FXML
+    private JFXTextField textFieldPesquisar;
 
     /**
      * Initializes the controller class.
@@ -259,6 +261,27 @@ public class JanelaFilmeController implements Initializable {
             }
             
         }
+        
+    }
+
+    @FXML
+    private void pesquisar(ActionEvent event) {
+        
+        //Limpando quaisquer dados anteriores
+        dados.clear();
+
+        //Pegando o nome que a pessoa deseja pesquisar
+        String nome = textFieldPesquisar.getText();
+        
+        //Solicitando a camada de servico a lista de atores
+        List<Filme> filmes = filmeServico.buscarPeloNome(nome);
+
+        //Transformar a lista de atores no formato que a tabela
+        //do JavaFX aceita
+        dados = FXCollections.observableArrayList(filmes);
+
+        //Jogando os dados na tabela
+        tabela.setItems(dados);
         
     }
 
