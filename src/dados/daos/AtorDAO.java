@@ -1,6 +1,7 @@
 package dados.daos;
 
 import dados.entidades.Ator;
+import dados.entidades.Filme;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -87,6 +88,28 @@ public class AtorDAO {
         
         //Commit na transação
         gerenciador.getTransaction().commit();
+        
+    }
+
+    public List<Ator> buscarPeloNomeNaoIncluidoNoFilme(String nome, Filme filme) {
+        
+        //Pegando o gerenciador de acesso ao BD
+        EntityManager gerenciador = JPAUtil.getGerenciador();
+
+        //Criando a consulta ao BD
+        TypedQuery<Ator> consulta = gerenciador.createQuery(
+                "SELECT a FROM Ator a WHERE a NOT IN "
+                        + "(SELECT a1 FROM Filme f INNER JOIN f.atores a1 WHERE f = :filme) "
+                        + "AND a.nome LIKE :nome "
+                        + "ORDER BY a.nome",
+                Ator.class);
+
+        consulta.setParameter("nome", nome + "%");
+        consulta.setParameter("filme", filme);
+       
+        List<Ator> lista = consulta.getResultList();
+        
+        return lista;
         
     }
 

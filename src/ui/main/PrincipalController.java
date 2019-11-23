@@ -15,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -25,13 +24,6 @@ import javafx.stage.StageStyle;
  * @author lusst
  */
 public class PrincipalController implements Initializable {
-    
-    private Label label;
-    
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -53,6 +45,11 @@ public class PrincipalController implements Initializable {
         stage.setTitle("Cadastro de Ator");
         //Adicionando a cena na janela
         stage.setScene(scene);
+        
+        //Para impedir que a janela seja redimensionada
+        //isso faz a janela ficar igual como está no 
+        //Secene Builder
+        stage.setResizable(false);
         
         //Configurando o MODALITY
         //Diz respeito ao comportamento das janelas anteriores
@@ -81,6 +78,44 @@ public class PrincipalController implements Initializable {
         stage.setTitle("Cadastro de Filme");
         //Adicionando a cena na janela
         stage.setScene(scene);
+        
+        //Para impedir que a janela seja redimensionada
+        //isso faz a janela ficar igual como está no 
+        //Secene Builder
+        stage.setResizable(false);
+        
+        //Configurando o MODALITY
+        //Diz respeito ao comportamento das janelas anteriores
+        //quando essa for mostrada
+        //Para bloquear interação com as janelas anteriores
+        stage.initModality(Modality.APPLICATION_MODAL);
+        
+        //Mostrando a nova janela
+        stage.show();
+        
+    }
+
+    @FXML
+    private void abrirJanelaFilmeAtor(ActionEvent event) throws IOException {
+        
+        //Código para abrir uma nova Janela
+        //Ler o FXML que representa a nova janela
+        //(adicionar o throws)
+        Parent root = FXMLLoader.load(getClass()
+                .getResource("/ui/filmeator/JanelaFilmeAtor.fxml"));
+        //Criando a cena
+        Scene scene = new Scene(root);
+        //Criando a janela (STAGE) 
+        Stage stage = new Stage(StageStyle.UTILITY);
+        //Titulo na janela
+        stage.setTitle("Cadastro de Filme e Atores");
+        //Adicionando a cena na janela
+        stage.setScene(scene);
+        
+        //Para impedir que a janela seja redimensionada
+        //isso faz a janela ficar igual como está no 
+        //Secene Builder
+        stage.setResizable(false);
         
         //Configurando o MODALITY
         //Diz respeito ao comportamento das janelas anteriores

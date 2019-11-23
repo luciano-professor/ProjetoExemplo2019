@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +31,7 @@ public class Filme {
     @ManyToOne(optional=false)
     private Genero genero;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Ator> atores = new HashSet<Ator>();
     
     //Construtor vazio da JPA (OBRIGATÓRIO)
@@ -41,10 +43,6 @@ public class Filme {
         setDataDeLancamento(dl);
         setArrecadacao(a);
         setGenero(g);
-    }
-    
-    public String getGeneroNome(){
-        return genero.getNome();
     }
     
     public String getLancamentoFormatado(){
@@ -101,6 +99,10 @@ public class Filme {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+    
+    public String toString(){
+        return nome;
     }
 
     @Override

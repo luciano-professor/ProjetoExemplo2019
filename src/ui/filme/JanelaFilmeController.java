@@ -8,7 +8,6 @@ package ui.filme;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import dados.entidades.Ator;
 import dados.entidades.Filme;
 import dados.entidades.Genero;
 import java.math.BigDecimal;
@@ -25,7 +24,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import servicos.AtorServico;
 import servicos.FilmeServico;
 import servicos.GeneroServico;
 import util.AlertaUtil;
@@ -105,7 +103,7 @@ public class JanelaFilmeController implements Initializable {
         colNome.setCellValueFactory(
                 new PropertyValueFactory("nome"));
         colGenero.setCellValueFactory(
-                new PropertyValueFactory("generoNome"));
+                new PropertyValueFactory("genero"));
         colArrecadacao.setCellValueFactory(
                 new PropertyValueFactory("arrecadacao"));
         colLancamento.setCellValueFactory(

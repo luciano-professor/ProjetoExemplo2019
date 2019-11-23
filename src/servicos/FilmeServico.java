@@ -1,6 +1,8 @@
 package servicos;
 
 import dados.daos.FilmeDAO;
+import dados.dto.FilmeAtor;
+import dados.entidades.Ator;
 import dados.entidades.Filme;
 import java.util.List;
 
@@ -65,6 +67,30 @@ public class FilmeServico {
         
         //Mandar para a DAO buscar os filmes pelo nome
         return dao.buscarPeloNome(nome);
+    }
+    
+    /**
+     * Busca uma lista de FilmeAtor (classe de Projeção que mostra uma relação entre um
+     * filme e um ator) pelo nome do filme ou pelo nome do ator
+     * 
+     */
+    public List<FilmeAtor> buscarFilmesAtoresPeloNomeFilmeOuNomeAtor(String nomeFilme) {
+        
+        return dao.buscarFilmesAtoresPeloNomeFilmeOuNomeAtor(nomeFilme);
+        
+    }
+
+    public void incluirAtorNoFilme(Filme filme, Ator ator) {
+    
+        //Mandar a DAO atualizar os dados no BD
+        dao.incluirAtorNoFilme(filme, ator);
+    }
+
+    public void removerAtorDoFilme(FilmeAtor filmeAtor) {
+    
+        //Manda a camada DAO remover o ator do filme
+        dao.removerAtorDoFilme(filmeAtor);
+        
     }
     
 }

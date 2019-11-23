@@ -38,6 +38,10 @@ public class Ator {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    public String toString(){
+        return nome;
+    }
 
     @Override
     public int hashCode() {

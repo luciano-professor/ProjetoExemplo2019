@@ -2,6 +2,7 @@ package servicos;
 
 import dados.daos.AtorDAO;
 import dados.entidades.Ator;
+import dados.entidades.Filme;
 import java.util.List;
 
 public class AtorServico {
@@ -53,6 +54,19 @@ public class AtorServico {
         
         //Mandar para a DAO excluir
         dao.excluir(a);
+    }
+
+    /**
+     * Busca a lista de atores pelo nome e que não estejam incluidos no
+     *  filme selecionado
+     */
+    public List<Ator> buscarPeloNomeNaoIncluidoNoFilme(String nome, Filme filme) {
+        
+        //Qualquer regra de negócio (se aplicável)
+        
+        //Mandar para a DAO buscar
+        return dao.buscarPeloNomeNaoIncluidoNoFilme(nome, filme);
+        
     }
     
 }

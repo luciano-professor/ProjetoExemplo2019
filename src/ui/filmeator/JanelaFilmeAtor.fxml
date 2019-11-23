@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.filmeator.JanelaFilmeAtorController">
+   <children>
+      <JFXTabPane fx:id="tabPaneFilmeAtor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+         <tabs>
+            <Tab fx:id="tabFilme" onSelectionChanged="#mudouDeTab" text="Filme">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <TableView fx:id="tabelaFilme" layoutX="14.0" layoutY="74.0" prefHeight="440.0" prefWidth="768.0">
+                          <columns>
+                            <TableColumn fx:id="colFilmeTabelaFilme" prefWidth="767.0" text="Filme" />
+                          </columns>
+                        </TableView>
+                        <JFXTextField fx:id="textFieldFilme" labelFloat="true" layoutX="14.0" layoutY="29.0" prefHeight="31.0" prefWidth="671.0" promptText="Nome do Filme" />
+                        <JFXButton layoutX="699.0" layoutY="29.0" onAction="#pesquisarFilmePeloNome" text="Pesquisar" />
+                        <JFXButton layoutX="572.0" layoutY="523.0" onAction="#confirmarFilmeSelecionado" text="Confirmar Filme Selecionado" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabAtor" disable="true" onSelectionChanged="#mudouDeTab" text="Ator">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <JFXTextField fx:id="textFieldFilmeSelecionado" disable="true" editable="false" labelFloat="true" layoutX="14.0" layoutY="29.0" prefHeight="31.0" prefWidth="671.0" promptText="Filme Selecionado" />
+                        <JFXButton layoutX="699.0" layoutY="84.0" onAction="#pesquisarAtorPeloNome" text="Pesquisar" />
+                        <TableView fx:id="tabelaAtor" layoutX="14.0" layoutY="128.0" prefHeight="374.0" prefWidth="768.0">
+                           <columns>
+                              <TableColumn fx:id="colAtorTabelaAtor" prefWidth="767.0" text="Ator" />
+                           </columns>
+                        </TableView>
+                        <JFXButton layoutX="547.0" layoutY="523.0" onAction="#incluirAtorSelecionadoNoFilme" text="Incluir Ator Selecionado no Filme" />
+                        <JFXTextField fx:id="textFieldAtor" labelFloat="true" layoutX="14.0" layoutY="83.0" prefHeight="31.0" prefWidth="671.0" promptText="Nome do Ator" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabFilmeAtor" onSelectionChanged="#mudouDeTab" text="Filmes com Atores">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <TableView fx:id="tabelaFilmeAtor" layoutX="14.0" layoutY="123.0" prefHeight="425.0" prefWidth="771.0">
+                          <columns>
+                            <TableColumn fx:id="colFilmeTabelaFilmeAtor" prefWidth="378.0" text="Filme" />
+                            <TableColumn fx:id="colAtorTabelaFilmeAtor" prefWidth="392.0" text="Ator" />
+                          </columns>
+                        </TableView>
+                        <JFXTextField fx:id="textFieldFilmeAtor" labelFloat="true" layoutX="14.0" layoutY="29.0" prefHeight="31.0" prefWidth="671.0" promptText="Nome do Filme ou Ator" />
+                        <JFXButton layoutX="699.0" layoutY="29.0" onAction="#pesquisarPorFilmeOuAtor" text="Pesquisar" />
+                        <JFXButton layoutX="609.0" layoutY="83.0" onAction="#removerAtorDoFilme" text="Remover Ator do Filme" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>
