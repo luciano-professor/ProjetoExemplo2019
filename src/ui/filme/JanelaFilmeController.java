@@ -10,8 +10,10 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import dados.entidades.Filme;
 import dados.entidades.Genero;
+import excecoes.ValorInvalidoException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -147,22 +149,32 @@ public class JanelaFilmeController implements Initializable {
         //Verificar se está atualizando ou inserindo
         if (textFieldId.getText().isEmpty()) { //inserindo
 
-            //Criando o objeto filme
-            Filme f = new Filme(
-                    textFieldNome.getText(),
-                    dateLancamento.getValue(),
-                    new BigDecimal(textFieldArrecadacao.getText()),
-                    comboGenero.getValue()
-            );
+            try{
+            
+                //Criando o objeto filme
+                Filme f = new Filme(
+                        textFieldNome.getText(),
+                        dateLancamento.getValue(),
+                        textFieldArrecadacao.getText(),
+                        comboGenero.getValue()
+                );
 
-            //Mandando para a camada de serviço salvar
-            filmeServico.salvar(f);
+                //Mandando para a camada de serviço salvar
+                filmeServico.salvar(f);
 
-            //Exibindo mensagem
-            AlertaUtil.mensagemSucesso("Filme salvo com sucesso!");
+                //Exibindo mensagem
+                AlertaUtil.mensagemSucesso("Filme salvo com sucesso!");
 
-            //Carregando lista de filmes
-            listarFilmesTabela();
+                //Carregando lista de filmes
+                listarFilmesTabela();
+            
+            }
+            catch(ParseException ex){
+                AlertaUtil.mensagemErro("Problema ao converter a arrecadacao");
+            }
+            catch(ValorInvalidoException ex){
+                AlertaUtil.mensagemErro(ex.getMessage());
+            }
 
         } else { //atualizando
 
@@ -174,21 +186,31 @@ public class JanelaFilmeController implements Initializable {
             //Se o botão OK foi pressionado
             if(btn.get() == ButtonType.OK){
                 
-                //Pegar os novos dados do formulário e
-                //atualizar o filme
-                selecionado.setNome(textFieldNome.getText());
-                selecionado.setArrecadacao(new BigDecimal(textFieldArrecadacao.getText()));
-                selecionado.setDataDeLancamento(dateLancamento.getValue());
-                selecionado.setGenero(comboGenero.getValue());
+                try{
                 
-                //Mandando para a camada de serviço salvar as alterações
-                filmeServico.editar(selecionado);
+                    //Pegar os novos dados do formulário e
+                    //atualizar o filme
+                    selecionado.setNome(textFieldNome.getText());
+                    selecionado.setArrecadacao(textFieldArrecadacao.getText());
+                    selecionado.setDataDeLancamento(dateLancamento.getValue());
+                    selecionado.setGenero(comboGenero.getValue());
+
+                    //Mandando para a camada de serviço salvar as alterações
+                    filmeServico.editar(selecionado);
+
+                    //Exibindo mensagem
+                    AlertaUtil.mensagemSucesso("Filme atualizado com sucesso!");
+
+                    //Carregando lista de filmes
+                    listarFilmesTabela();
                 
-                //Exibindo mensagem
-                AlertaUtil.mensagemSucesso("Filme atualizado com sucesso!");
-                
-                //Carregando lista de filmes
-                listarFilmesTabela();
+                }
+                catch(ParseException ex){
+                    AlertaUtil.mensagemErro("Problema ao converter a arrecadacao");
+                }
+                catch(ValorInvalidoException ex){
+                    AlertaUtil.mensagemErro(ex.getMessage());
+                }
                 
             }
             
@@ -221,7 +243,7 @@ public class JanelaFilmeController implements Initializable {
             //Pega os dados do filme e joga no formulário
             textFieldId.setText(String.valueOf(selecionado.getId()));
             textFieldNome.setText(selecionado.getNome());
-            textFieldArrecadacao.setText(selecionado.getArrecadacao().toString());
+            textFieldArrecadacao.setText(selecionado.getArrecadacaoFormatada());
             dateLancamento.setValue(selecionado.getDataDeLancamento());
             comboGenero.setValue(selecionado.getGenero());
             

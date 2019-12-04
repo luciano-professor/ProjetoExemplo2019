@@ -1,7 +1,10 @@
 package dados.entidades;
 
+import excecoes.ValorInvalidoException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -39,7 +42,16 @@ public class Filme {
     public Filme(){}
     
     //Construtor usado na hora de criar um novo filme
-    public Filme(String n, LocalDate dl, BigDecimal a, Genero g){
+    public Filme(String n, LocalDate dl, BigDecimal a, Genero g) 
+            throws ValorInvalidoException{
+        setNome(n);
+        setDataDeLancamento(dl);
+        setArrecadacao(a);
+        setGenero(g);
+    }
+    
+    public Filme(String n, LocalDate dl, String a, Genero g) 
+            throws ParseException, ValorInvalidoException{
         setNome(n);
         setDataDeLancamento(dl);
         setArrecadacao(a);
@@ -78,7 +90,13 @@ public class Filme {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) 
+            throws ValorInvalidoException {
+        
+        if(!nome.matches("[\\p{L}\\p{N}\\s]+")){
+            throw new ValorInvalidoException("Nome Inválido! São aceitos apenas caracteres alfanuméricos e espaços.");
+        }
+        
         this.nome = nome;
     }
 
@@ -106,6 +124,20 @@ public class Filme {
 
     public void setArrecadacao(BigDecimal arrecadacao) {
         this.arrecadacao = arrecadacao;
+    }
+    
+    /**
+     * Recebe um valor de arrecadacao com virgula 
+     * e converte no formato correto pra salvar no BD
+     */
+    public void setArrecadacao(String arrecadacao) 
+            throws ParseException{
+        
+        NumberFormat formatador = NumberFormat.getInstance();
+        this.arrecadacao = 
+                new BigDecimal(
+                        formatador.parse(arrecadacao).toString());
+        
     }
 
     public Genero getGenero() {

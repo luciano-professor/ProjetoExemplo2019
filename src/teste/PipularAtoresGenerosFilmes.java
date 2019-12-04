@@ -8,6 +8,7 @@ package teste;
 import dados.entidades.Ator;
 import dados.entidades.Filme;
 import dados.entidades.Genero;
+import excecoes.ValorInvalidoException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.EntityManager;
@@ -19,7 +20,7 @@ import util.JPAUtil;
  */
 public class PipularAtoresGenerosFilmes {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ValorInvalidoException {
         
         //Pegando o gerenciador de acesso ao BD
         EntityManager gerenciador = JPAUtil.getGerenciador();

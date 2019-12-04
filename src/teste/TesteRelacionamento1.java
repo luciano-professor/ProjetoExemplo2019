@@ -2,13 +2,14 @@ package teste;
 
 import dados.entidades.Filme;
 import dados.entidades.Genero;
+import excecoes.ValorInvalidoException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import util.JPAUtil;
 
 public class TesteRelacionamento1 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ValorInvalidoException {
         
         Genero g = new Genero();
         g.setNome("Drama");
