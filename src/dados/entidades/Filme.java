@@ -1,6 +1,7 @@
 package dados.entidades;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -46,12 +47,16 @@ public class Filme {
     }
     
     public String getLancamentoFormatado(){
+        
+        
         DateTimeFormatter formatador = DateTimeFormatter
                 .ofLocalizedDate(FormatStyle.MEDIUM);
         
         String formatado = dataDeLancamento.format(formatador);
         return formatado;
     }
+    
+    
 
     public Set<Ator> getAtores() {
         return atores;
@@ -87,6 +92,16 @@ public class Filme {
 
     public BigDecimal getArrecadacao() {
         return arrecadacao;
+    }
+    
+    /**
+     * Para retornar uma String com o valor da arrecadaco
+     * formatada no formato parecido com dinheiro
+     * @return 
+     */
+    public String getArrecadacaoFormatada(){
+        DecimalFormat formatador = new DecimalFormat("#0.00");
+        return formatador.format(arrecadacao);
     }
 
     public void setArrecadacao(BigDecimal arrecadacao) {

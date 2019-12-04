@@ -105,7 +105,7 @@ public class JanelaFilmeController implements Initializable {
         colGenero.setCellValueFactory(
                 new PropertyValueFactory("genero"));
         colArrecadacao.setCellValueFactory(
-                new PropertyValueFactory("arrecadacao"));
+                new PropertyValueFactory("ArrecadacaoFormatada"));
         colLancamento.setCellValueFactory(
                 new PropertyValueFactory("lancamentoFormatado"));
 
